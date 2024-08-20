@@ -1,2 +1,2 @@
 # youtube_highlight
-youtubeの登録済み投稿者の動画を目立たせる
+youtubeの登録済み投稿者の動画を目立たせる拡張機能
