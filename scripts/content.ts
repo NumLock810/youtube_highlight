@@ -1,17 +1,18 @@
-import { getSubscriptions } from "./get_subscription";
+import getSubscriptions from "./get_subscription.js";
+import path from "node:path"
+import { config } from "dotenv";
 
-const path = require('path')
+// .envファイル指定
 const ENV_PATH = path.join(__dirname, '../.env');
-require('dotenv').config({ path: ENV_PATH });
-const dotenv = require('dotenv').config();
+config({ path: ENV_PATH });
 
 
 // 使用例
-const channelId = process.env.YT_CHANNEL_ID; // 対象のチャンネルIDをここに入れてください
+const channelId = process.env.YT_CHANNEL_ID as string; // 対象のチャンネルIDをここに入れてください
 getSubscriptions(channelId).then(subscriptions => {
     if (subscriptions && subscriptions.length > 0) {
         subscriptions.forEach(sub => {
-            console.log(`${sub.snippet.title}: https://www.youtube.com/channel/${sub.snippet.resourceId.channelId}`);
+            console.log(`${sub.snippet?.title}: https://www.youtube.com/channel/${sub.snippet?.resourceId?.channelId}`);
         });
     } else {
         console.log('登録チャンネルが見つからないか、アクセスできません。');
