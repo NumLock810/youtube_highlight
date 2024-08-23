@@ -1,6 +1,9 @@
 import getSubscriptions from "./get_subscription.js";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { config } from "dotenv";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const ENV_PATH = path.join(__dirname, '../.env');
 config({ path: ENV_PATH });
 const channelId = process.env.YT_CHANNEL_ID;

@@ -9,7 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import path from "path";
 import { config } from "dotenv";
+import { fileURLToPath } from "node:url";
 import { google } from "googleapis";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const ENV_PATH = path.join(__dirname, '../.env');
 config({ path: ENV_PATH });
 const youtube = google.youtube({
