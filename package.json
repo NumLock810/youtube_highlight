@@ -1,0 +1,11 @@
+{
+    "name": "youtube_highlight",
+    "version": "1.0.0",
+    "description": "youtubeの登録済み投稿者の動画を目立たせる拡張機能",
+    "main": "content.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC"
+}
