@@ -18,9 +18,12 @@ const envKeys = Object.keys(env).reduce((prev, next) => {
 
 
 module.exports = {
-    
     // どのソースからスタートするか
-    entry:"./scripts/content.ts",
+    entry: {
+        background: './src/background.ts',
+        content: './src/content.ts',
+        popup: './src/popup.ts'
+    },
     
     output: {
         // 出力するファイル名
