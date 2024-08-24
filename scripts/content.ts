@@ -1,11 +1,6 @@
 import getSubscriptions from "./get_subscription.js";
 import path from "node:path"
-import { fileURLToPath } from "node:url";
 import { config } from "dotenv";
-
-// __dirnameをESmoduleでも使えるようにする
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 // .envファイル指定
 const ENV_PATH = path.join(__dirname, '../.env');

@@ -1,11 +1,6 @@
 import path from "path";
 import { config } from "dotenv";
-import { fileURLToPath } from "node:url";
 import { google, youtube_v3 } from "googleapis";
-
-// __dirnameをESmoduleでも使えるようにする
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 // .envファイル指定
 const ENV_PATH = path.join(__dirname, '../.env');
