@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,19 +8,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import path from "path";
-import { config } from "dotenv";
-import { fileURLToPath } from "node:url";
-import { google } from "googleapis";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const ENV_PATH = path.join(__dirname, '../.env');
-config({ path: ENV_PATH });
-const youtube = google.youtube({
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = getSubscriptions;
+const path_1 = __importDefault(require("path"));
+const dotenv_1 = require("dotenv");
+const googleapis_1 = require("googleapis");
+const ENV_PATH = path_1.default.join(__dirname, '../.env');
+(0, dotenv_1.config)({ path: ENV_PATH });
+const youtube = googleapis_1.google.youtube({
     version: 'v3',
     auth: process.env.YT_API_KEY
 });
-export default function getSubscriptions(channelId) {
+function getSubscriptions(channelId) {
     return __awaiter(this, void 0, void 0, function* () {
         var _a;
         try {

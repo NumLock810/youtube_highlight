@@ -1,13 +1,15 @@
-import getSubscriptions from "./get_subscription.js";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import { config } from "dotenv";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const ENV_PATH = path.join(__dirname, '../.env');
-config({ path: ENV_PATH });
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const get_subscription_js_1 = __importDefault(require("./get_subscription.js"));
+const node_path_1 = __importDefault(require("node:path"));
+const dotenv_1 = require("dotenv");
+const ENV_PATH = node_path_1.default.join(__dirname, '../.env');
+(0, dotenv_1.config)({ path: ENV_PATH });
 const channelId = process.env.YT_CHANNEL_ID;
-getSubscriptions(channelId).then(subscriptions => {
+(0, get_subscription_js_1.default)(channelId).then(subscriptions => {
     if (subscriptions && subscriptions.length > 0) {
         subscriptions.forEach(sub => {
             var _a, _b, _c;
