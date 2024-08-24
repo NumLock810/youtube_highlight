@@ -2,17 +2,21 @@
     "name": "youtube_highlight",
     "version": "1.0.0",
     "description": "youtubeの登録済み投稿者の動画を目立たせる拡張機能",
-    "type": "module",
+    "type": "commonjs",
     "main": "content.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "webpack"
+    }, 
     "author": "",
     "license": "ISC",
     "dependencies": {
         "dotenv": "^16.4.5",
         "googleapis": "^142.0.0",
-        "typescript": "^5.5.4"
+        "ts-loader": "^9.5.1",
+        "typescript": "^5.5.4",
+        "webpack": "^5.94.0",
+        "webpack-cli": "^5.1.4"
     },
     "devDependencies": {
         "@types/node": "^22.5.0"
