@@ -1,9 +1,9 @@
 // Saves options to chrome.storage
 const saveOptions = () => {
-    const color = (document.getElementById('color') as HTMLInputElement).value;
-    const likesColor = (document.getElementById('like') as HTMLInputElement).checked;
+    const ytAPIkey = (document.getElementById('ytAPIkey') as HTMLInputElement).value;
+    const ytChannelId = (document.getElementById("ytChannelId") as HTMLInputElement).value
     
-    chrome.storage.sync.set({ favoriteColor: color, likesColor }, () => {
+    chrome.storage.local.set({ apiKey: ytAPIkey, channelId: ytChannelId }, () => {
         const status = document.getElementById('status');
         if (status) {
             status.textContent = 'Options saved.';
@@ -17,12 +17,12 @@ const saveOptions = () => {
 // Restores select box and checkbox state using the preferences
 // stored in chrome.storage.
 const restoreOptions = () => {
-    chrome.storage.sync.get({ favoriteColor: 'red', likesColor: true }, (items) => {
-        const colorElement = document.getElementById('color') as HTMLInputElement;
-        const likeElement = document.getElementById('like') as HTMLInputElement;
+    chrome.storage.local.get(["apiKey", "channelId"], (items) => {
+        const ytAPIkeyElement = document.getElementById('ytAPIkey') as HTMLInputElement;
+        const ytChannelIdElement = document.getElementById('ytChannelId') as HTMLInputElement;
         
-        if (colorElement) colorElement.value = items.favoriteColor;
-        if (likeElement) likeElement.checked = items.likesColor;
+        if (ytAPIkeyElement) ytAPIkeyElement.value = items.apiKey;
+        if (ytChannelIdElement) ytChannelIdElement.value = items.channelId;
     });
 };
 
