@@ -6,12 +6,13 @@
     "main": "content.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "webpack"
-    }, 
+        "build": "webpack --config webpack.config.js",
+        "watch": "webpack --config webpack.config.js --watch"
+    },
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "dotenv": "^16.4.5",
+        "@types/chrome": "^0.0.270",
         "googleapis": "^142.0.0",
         "ts-loader": "^9.5.1",
         "typescript": "^5.5.4",
