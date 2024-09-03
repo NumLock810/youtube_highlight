@@ -1,9 +1,9 @@
 "use strict";
 var _a;
 const saveOptions = () => {
-    const color = document.getElementById('color').value;
-    const likesColor = document.getElementById('like').checked;
-    chrome.storage.sync.set({ favoriteColor: color, likesColor }, () => {
+    const ytAPIkey = document.getElementById('ytAPIkey').value;
+    const ytChannelId = document.getElementById("ytChannelId").value;
+    chrome.storage.local.set({ apiKey: ytAPIkey, channelId: ytChannelId }, () => {
         const status = document.getElementById('status');
         if (status) {
             status.textContent = 'Options saved.';
@@ -14,13 +14,13 @@ const saveOptions = () => {
     });
 };
 const restoreOptions = () => {
-    chrome.storage.sync.get({ favoriteColor: 'red', likesColor: true }, (items) => {
-        const colorElement = document.getElementById('color');
-        const likeElement = document.getElementById('like');
-        if (colorElement)
-            colorElement.value = items.favoriteColor;
-        if (likeElement)
-            likeElement.checked = items.likesColor;
+    chrome.storage.local.get(["apiKey", "channelId"], (items) => {
+        const ytAPIkeyElement = document.getElementById('ytAPIkey');
+        const ytChannelIdElement = document.getElementById('ytChannelId');
+        if (ytAPIkeyElement)
+            ytAPIkeyElement.value = items.apiKey;
+        if (ytChannelIdElement)
+            ytChannelIdElement.value = items.channelId;
     });
 };
 document.addEventListener('DOMContentLoaded', restoreOptions);
