@@ -6,48 +6,44 @@
 */
 const path = require('path');
 
-// dotenv用の設定
-const webpack = require('webpack');
-const dotenv = require('dotenv');
-
-const env = dotenv.config().parsed;
-const envKeys = Object.keys(env).reduce((prev, next) => {
-  prev[`process.env.${next}`] = JSON.stringify(env[next]);
-  return prev;
-}, {});
-
-
 module.exports = {
     // どのソースからスタートするか
     entry: {
-        background: './src/background.ts',
-        content: './src/content.ts',
-        popup: './src/popup.ts'
+        // background: './scripts/background.ts',
+        content: './scripts/content.ts',
+        // popup: './scripts/popup.ts',
+        option: "./scripts/option.ts",
     },
     
     output: {
         // 出力するファイル名
-        filename: "content.js",
+        filename: "[name].js",
         
         // 出力するファイルをどこに出力するか（絶対パスで書く）
-        path: path.resolve(__dirname, "dist")
+        path: path.resolve(__dirname, "webpack")
     },
     
     // モードの設定
-    mode: "development",
-
+    // mode: "development",
+    mode: "production",
+    
+    // evalが含まれないようにする
+    devtool: 'cheap-module-source-map',
+    
     // ts-loaderの設定
     module: {
-        rules:[{
-            // どんなファイルに対して
-            test: /\.ts$/,
-            
-            // 何をするのか
-            use: 'ts-loader',
-            
-            // node_modulesから持ってきたtsファイルはts-loaderの対象から省く
-            exclude: /node_modules/
-        }]
+        rules:[
+            {
+                // どんなファイルに対して
+                test: /\.ts$/,
+                
+                // 何をするのか
+                use: 'ts-loader',
+                
+                // node_modulesから持ってきたtsファイルはts-loaderの対象から省く
+                exclude: /node_modules/,
+            }
+        ]
     },
     resolve: {
         /**
@@ -57,16 +53,46 @@ module.exports = {
         * 
         * 検索は配列の左から順番に行う。
         */
-        extensions: ['.ts', '.js']
-    },
-    
-    plugins: [
-        new webpack.DefinePlugin(envKeys)
-    ],
-    resolve: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        
+        // なんかいろいろ
         alias: {
-            '@': path.resolve(__dirname, 'dist'),  // distディレクトリへのエイリアスを設定
+            assert: "assert",
+            buffer: "buffer",
+            console: "console-browserify",
+            constants: "constants-browserify",
+            crypto: "crypto-browserify",
+            domain: "domain-browser",
+            events: "events",
+            http: "stream-http",
+            https: "https-browserify",
+            os: "os-browserify/browser",
+            path: "path-browserify",
+            punycode: "punycode",
+            process: "process/browser",
+            querystring: "querystring-es3",
+            stream: "stream-browserify",
+            _stream_duplex: "readable-stream/duplex",
+            _stream_passthrough: "readable-stream/passthrough",
+            _stream_readable: "readable-stream/readable",
+            _stream_transform: "readable-stream/transform",
+            _stream_writable: "readable-stream/writable",
+            string_decoder: "string_decoder",
+            sys: "util",
+            timers: "timers-browserify",
+            tty: "tty-browserify",
+            url: "url",
+            util: "util",
+            vm: "vm-browserify",
+            zlib: "browserify-zlib"
         },
-        extensions: ['.js', '.ts', '.tsx'],  // 必要に応じて拡張子を追加
+        
+        fallback: {
+            child_process: false,
+            fs: false,
+            crypto: false,
+            net: false,
+            tls: false
+        }
     },
 }
