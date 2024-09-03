@@ -2,7 +2,8 @@
     "compilerOptions": {
         /* Basic Options */
         "target": "ES6",
-        "module": "CommonJS",
+        // "module": "CommonJS",
+        "moduleResolution": "node",
         "sourceMap": true,
         "outDir": "./dist",
         "rootDir": "./scripts",
@@ -22,7 +23,14 @@
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
 
-        // nodeを見に行くように？
-        "moduleResolution": "node"
-    }
+        // // nodeを見に行くように？
+        // "moduleResolution": "node",
+        "typeRoots": [
+            "./node_modules/@types",
+            "./src/@types"
+        ],
+    },
+    "exclude": [
+        "node_modules"
+    ]
 }
