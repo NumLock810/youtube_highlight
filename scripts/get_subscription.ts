@@ -1,21 +1,31 @@
-import path from "path";
-import { config } from "dotenv";
 import { google, youtube_v3 } from "googleapis";
-
-// .envファイル指定
-const ENV_PATH = path.join(__dirname, '../.env');
-config({ path: ENV_PATH });
 
 // 型定義を追加
 type Subscription = youtube_v3.Schema$Subscription;
 
-const youtube = google.youtube({
-    version: 'v3',
-    auth: process.env.YT_API_KEY as string // あなたの API キーをここに入れてください
-});
+async function getApiKey(): Promise<string> {
+    return new Promise((resolve, reject) => {
+        chrome.storage.local.get('apiKey', (items) => {
+            if (items.apiKey) {
+                resolve(items.apiKey);
+            } else {
+                reject(new Error('APIキーが見つかりません。'));
+            }
+        });
+    });
+}
+
+async function initializeYouTubeClient(): Promise<youtube_v3.Youtube> {
+    const apiKey = await getApiKey();
+    return google.youtube({
+        version: 'v3',
+        auth: apiKey
+    });
+}
 
 export default async function getSubscriptions(channelId:string):Promise<Subscription[]|null> {
     try {
+        const youtube = await initializeYouTubeClient();
         let nextPageToken = '';
         const subscriptions = [];
         

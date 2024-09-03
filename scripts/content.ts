@@ -1,15 +1,17 @@
-import getSubscriptions from "./get_subscription.js";
-import path from "node:path"
-import { config } from "dotenv";
+import getSubscriptions from "./get_subscription";
 
-// .envファイル指定
-const ENV_PATH = path.join(__dirname, '../.env');
-config({ path: ENV_PATH });
-
-
-// 使用例
-const channelId = process.env.YT_CHANNEL_ID as string; // 対象のチャンネルIDをここに入れてください
-getSubscriptions(channelId).then(subscriptions => {
+// メイン処理
+new Promise<string>((resolve, reject) => {
+    chrome.storage.local.get("channelId", items => {
+        if (items.channelId) {
+            resolve(items.channelId);
+        } else {
+            reject(new Error('チャンネルIDが見つかりません。'));
+        }
+    });
+})
+.then(channelId => getSubscriptions(channelId))
+.then(subscriptions => {
     if (subscriptions && subscriptions.length > 0) {
         subscriptions.forEach(sub => {
             console.log(`${sub.snippet?.title}: https://www.youtube.com/channel/${sub.snippet?.resourceId?.channelId}`);
@@ -17,6 +19,7 @@ getSubscriptions(channelId).then(subscriptions => {
     } else {
         console.log('登録チャンネルが見つからないか、アクセスできません。');
     }
-}).catch(error => {
+})
+.catch(error => {
     console.error('エラーが発生しました:', error);
 });
